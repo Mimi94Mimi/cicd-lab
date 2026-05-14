@@ -1,4 +1,4 @@
-name: CI Typecheck and Prettier
+name: my CI test
 
 on:
   push:

@@ -9,4 +9,12 @@ describe('buildApp logger default behavior', () => {
     expect((app as any).initialConfig.logger).toBe(true);
     await app.close();
   });
+
+  it('keeps logger disabled when options.logger is false', async () => {
+    const app = buildApp({ logger: false });
+
+    // Fastify uses a non-Pino logger object without level when logger is disabled.
+    expect((app as any).log.level).toBeUndefined();
+    await app.close();
+  });
 });
