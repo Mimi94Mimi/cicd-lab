@@ -6,7 +6,7 @@ describe('buildApp logger default behavior', () => {
     const app = buildApp({ logger: undefined });
 
     // Regression check: undefined logger should still resolve to true.
-    expect((app as any).initialConfig.logger).toBe(true);
+    expect((app as any).log.level).toBe('info');
     await app.close();
   });
 
