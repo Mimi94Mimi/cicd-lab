@@ -2,8 +2,8 @@ import Fastify, { FastifyServerOptions } from 'fastify';
 
 export function buildApp(options: FastifyServerOptions = {}) {
   const app = Fastify({
-    logger: options.logger ?? true,
-    ...options
+    ...options,
+    logger: options.logger ?? true
   });
 
   app.get('/', async () => {
