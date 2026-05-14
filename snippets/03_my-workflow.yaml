@@ -1,0 +1,35 @@
+name: CI Typecheck and Prettier
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript typecheck
+        run: npm run typecheck
+
+      - name: Prettier check
+        run: npx prettier --check "src/**/*.ts" "test/**/*.ts"
+
+      - name: Run regression test for logger default
+        run: npm test -- test/logger-default.regression.test.ts
